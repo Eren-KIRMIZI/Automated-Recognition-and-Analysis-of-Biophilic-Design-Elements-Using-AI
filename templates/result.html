@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Analiz Sonucu</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(to right, #e0eafc, #cfdef3);
+            font-family: 'Poppins', sans-serif;
+        }
+        .result-card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            padding: 40px;
+            margin-top: 50px;
+        }
+        .btn-primary {
+            background-color: #2b7a78;
+            border-color: #2b7a78;
+        }
+        .btn-primary:hover {
+            background-color: #226a69;
+            border-color: #226a69;
+        }
+        .score-box {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .suggestion-box {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeeba;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="result-card text-center">
+            <h2 class="mb-4">🔍 Analiz Tamamlandı</h2>
+            <p><strong>📁 Yüklenen Dosya:</strong> {{ filename }}</p>
+            <img src="{{ url_for('static', filename='predictions/' + filename) }}"
+                 class="img-fluid border rounded"
+                 style="max-width: 700px; max-height: 500px; object-fit: contain;"
+                 alt="Tahmin Sonucu">
+
+            <div class="score-box mt-4">
+                <h4 class="mb-3">🌿 Biyofilik Skor: {{ score }} / 100</h4>
+                <p>{{ biyofilik_mesaj }}</p>
+                <p class="mb-2">Tespit edilen biyofilik unsurlar:</p>
+                <ul class="list-group list-group-flush text-start mx-auto" style="max-width: 300px;">
+                    {% if elements %}
+                        {% for element, count in elements.items() %}
+                        <li class="list-group-item">{{ element }}: {{ count }}</li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item">Hiçbir biyofilik unsur tespit edilmedi.</li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            {% if suggestions %}
+            <div class="suggestion-box mt-4 text-start">
+                <h5>📝 Öneriler:</h5>
+                <ul>
+                    {% for suggestion in suggestions %}
+                    <li>{{ suggestion }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <div class="mt-4">
+                <a href="{{ url_for('index') }}" class="btn btn-primary btn-lg">Yeni Görsel Yükle</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
