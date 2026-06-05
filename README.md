@@ -1,5 +1,4 @@
-[Eren KIRMIZI Bitirme Raporu.pdf](https://github.com/user-attachments/files/23140918/Eren.KIRMIZI.Bitirme.Raporu.pdf)
-
+https://dergipark.org.tr/en/pub/aita/article/1787092
 
 # Automated Biophilic Element Detection
 
